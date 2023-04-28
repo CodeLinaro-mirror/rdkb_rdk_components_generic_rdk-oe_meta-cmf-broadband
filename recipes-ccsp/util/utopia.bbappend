@@ -9,6 +9,7 @@ SRC_URI  += " ${@bb.utils.contains('DISTRO_FEATURES', 'device_gateway_associatio
 DEPENDS += " nanomsg"
 
 CFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_wan_manager', '-D_WAN_MANAGER_ENABLED_', '', d)}"
+CFLAGS_remove_dunfell = "-Wno-enum-conversion"
 
 LDFLAGS += " -lpthread -lhal_platform -lccsp_common"
 
