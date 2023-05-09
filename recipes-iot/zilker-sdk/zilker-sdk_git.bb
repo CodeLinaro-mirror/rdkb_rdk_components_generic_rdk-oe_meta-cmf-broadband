@@ -10,6 +10,7 @@ SRCREV_FORMAT .= "_zilker-sdk"
 
 S = "${WORKDIR}/git"
 
+PV = "${RDK_RELEASE}+git${SRCPV}"
 DEPENDS = "ccsp-common-library utopia dbus cjson libxml2 mosquitto16 curl sqlite3 mbedtls iksemel util-linux libparodus nanomsg duktape linenoise littlesheens gradle-native ccronexpr"
 RDEPENDS_${PN}_append_dunfell = " ${@bb.utils.contains('DISTRO_FEATURES', 'dunfell', ' bash', '', d)}"
 DEPENDS_append_dunfell = " nettle libgpg-error libgcrypt unzip-native coreutils-native zlog"
