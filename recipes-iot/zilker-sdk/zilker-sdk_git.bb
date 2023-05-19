@@ -11,8 +11,8 @@ SRCREV_FORMAT .= "_zilker-sdk"
 S = "${WORKDIR}/git"
 
 DEPENDS = "ccsp-common-library utopia dbus cjson libxml2 mosquitto16 curl sqlite3 mbedtls iksemel util-linux libparodus nanomsg duktape linenoise littlesheens gradle-native ccronexpr"
-RDEPENDS_${PN}_append_dunfell = " ${@bb.utils.contains('DISTRO_FEATURES', 'dunfell', ' bash', '', d)}"
-DEPENDS_append_dunfell = " nettle libgpg-error libgcrypt unzip-native coreutils-native zlog"
+RDEPENDS_${PN}_append = " bash"
+DEPENDS_append = " nettle libgpg-error libgcrypt unzip-native coreutils-native zlog"
 
 require recipes-ccsp/ccsp/ccsp_common.inc
 
