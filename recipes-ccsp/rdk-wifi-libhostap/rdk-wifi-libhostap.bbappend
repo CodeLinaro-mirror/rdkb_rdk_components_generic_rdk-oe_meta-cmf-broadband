@@ -23,5 +23,6 @@ file://004_RDKB_45650_TCXB7_5403_Added_more_validation_check_on_OneWifi_code.pat
 file://005_RDKB_40014_Integrate_hostapd_2_10.patch \
 file://006_RDKB_45281_Added_Wi-Fi_WPS_event_notify_callback_handling.patch \
 file://007_RDKB_45694_Libhostap_changes_to_support_Onewifi_Sharman.patch \
-file://008_TCXB7_5608_Observing_onewifi_crash_with_signature_wpa_receive.patch ',\
+file://008_TCXB7_5608_Observing_onewifi_crash_with_signature_wpa_receive.patch \
+file://009-RDKB-44454-Store-assoc-request-in-sta-struct.patch ',\
 ' ', d)}"
