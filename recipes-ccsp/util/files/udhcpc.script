@@ -7,6 +7,8 @@ source /etc/utopia/service.d/log_capture_path.sh
 source /etc/device.properties
 source /etc/log_timestamp.sh
 
+RPI_SPECIFIC=`grep -i "BOX_TYPE" /etc/device.properties  | cut -f2 -d=`
+
 mta_dhcp_option_received=0
 echo "****************** udhcpc.script called*************"
 [ -z "$1" ] && echo "Error: should be called from udhcpc" && exit 1
@@ -265,6 +267,24 @@ case "$1" in
                         # these events are being set in service_wan , we don't need to set these events again
                         # sysevent set wan_service-status started
                         # sysevent set wan-status started
+#In RPI , udhcpc script plays the major role in bringing the wan up.In RPI, from udhcpc script , the code flow goes to bringing the service_dynamic_dns and by this time wanstatus also is started.Hence adding the code of bringing the wan_state up here.Internet works fine and also wan - manager logs dont show any error now .Earlier there were lot of error logs in wan-manager , even though IP was there.This .Wan_init complete logs are also added here as with this wan intialisation is complete			
+			if [ "$RPI_SPECIFIC" = "rpi" ]; then
+                                sysevent set current_wan_state up
+
+                                if [ "xstarted" != "x`sysevent get wan_service-status`" ];then
+                                        sysevent set wan_service-status started
+                                fi
+
+                                if [ "xstarted" != "x`sysevent get wan-status`" ];then
+                                        sysevent set wan-status started
+                                fi
+                                uptime=`cat /proc/uptime | awk '{ print $1 }' | cut -d"." -f1`
+                                touch /tmp/wan_ready
+                                /usr/bin/print_uptime "Waninit_complete"
+                                print_uptime "boot_to_wan_uptime"
+
+
+			fi	
 			if [ "x$WAN_TYPE" == "xEPON" ]; then
 				sysevent set ipv4-status up
 				sysevent set wan_ipaddr $ip
