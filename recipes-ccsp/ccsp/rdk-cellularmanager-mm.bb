@@ -9,6 +9,10 @@ DEPENDS = "ccsp-common-library rdk-logger utopia libunpriv halinterface glib-2.0
 DEPENDS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'safec', ' safec', " ", d)}"
 
 DEPENDS_append += "modemmanager"
+DEPENDS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' libusb1', " ", d)}"
+DEPENDS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' libnl', " ", d)}"
+DEPENDS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' libmbim', " ", d)}"
+DEPENDS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' udev', " ", d)}"
 
 SRC_URI ="${CMF_GIT_ROOT}/rdkb/components/opensource/ccsp/RdkCellularManager-MM;protocol=${CMF_GIT_PROTOCOL};branch=${CMF_GIT_BRANCH};name=CellularManager-mm"
 
@@ -24,6 +28,7 @@ inherit coverity
 require recipes-ccsp/ccsp/ccsp_common.inc
 
 inherit autotools pkgconfig systemd ${@bb.utils.contains("DISTRO_FEATURES", "kirkstone", "python3native", "pythonnative", d)}
+EXTRA_OECONF_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', 'IS_HYBRID_SUPPORT=true', '', d)}"
 
 CFLAGS_append = " \
     -I${STAGING_INCDIR} \
@@ -36,6 +41,12 @@ CFLAGS_append = " \
     -I${STAGING_INCDIR}/libqmi-glib \
     -I${STAGING_INCDIR}/trower-base64 \
     -I${STAGING_INCDIR}/msgpackc \
+    -DFEATURE_SUPPORT_RDKLOG \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -I${STAGING_INCDIR}/libusb-1.0', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -I${STAGING_INCDIR}/libnl3', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -DDUID_UUID_ENABLE', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -DFEATURE_RNDIS_HAL', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -DFEATURE_MODEM_HAL', '', d)} \
     "
 LDFLAGS += " -lprivilege"
 LDFLAGS_append = " -ldbus-1"
@@ -51,6 +62,11 @@ CFLAGS += "-DMM_SUPPORT"
 #CFLAGS += "-DQMI_SUPPORT"
 
 LDFLAGS += "-lmm-glib"
+LDFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -lnanomsg', '', d)}"
+LDFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -lusb-1.0', '', d)}"
+LDFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -ludev', '', d)}"
+LDFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -lnl-3', '', d)}"
+LDFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -lnl-route-3', '', d)}"
 
 PACKAGES += "${@bb.utils.contains('DISTRO_FEATURES', 'gtestapp', '${PN}-gtest', '', d)}"
 
@@ -71,16 +87,25 @@ do_install_append () {
     install -d ${D}${exec_prefix}/rdk/cellularmanager
     ln -sf ${bindir}/cellularmanager ${D}${exec_prefix}/rdk/cellularmanager/cellularmanager
     install -m 644 ${S}/config/RdkCellularManager.xml ${D}${exec_prefix}/rdk/cellularmanager/
-    
+    if ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', 'true', 'false', d)}; then
+    install -m 744 ${S}/config/run_dhcp.sh ${D}/usr/rdk/cellularmanager
+    install -m 744 ${S}/config/enable_drivers.sh ${D}/usr/rdk/cellularmanager
+    fi
     #Install systemd unit.
     install -d ${D}${systemd_unitdir}/system
     install -D -m 0644 ${S}/systemd_units/RdkCellularManager.service ${D}${systemd_unitdir}/system/RdkCellularManager.service
+    if ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', 'true', 'false', d)}; then
+        sed -i "/ExecStart/ i\ExecStartPre=/bin/sh -c '(/usr/rdk/cellularmanager/enable_drivers.sh)'" ${D}${systemd_unitdir}/system/RdkCellularManager.service
+    fi
 }
 
 FILES_${PN} = " \
    ${bindir}/* \
    ${exec_prefix}/rdk/cellularmanager/* \
    ${systemd_unitdir}/system/RdkCellularManager.service \
+   ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' ${exec_prefix}/rdk/cellularmanager/RdkCellularManager.xml', '', d)} \
+   ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' ${exec_prefix}/rdk/cellularmanager/run_dhcp.sh', '', d)} \
+   ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' ${exec_prefix}/rdk/cellularmanager/enable_drivers.sh', '', d)} \
 "
 
 FILES_${PN}-dbg = " \
