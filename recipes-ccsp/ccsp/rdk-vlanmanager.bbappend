@@ -3,4 +3,6 @@ SRC_URI += "${CMF_GIT_ROOT}/rdkb/components/opensource/ccsp/RdkVlanBridgingManag
 
 inherit coverity
 
+DEPENDS += "json-c"
+
 LDFLAGS += "-lbreakpadwrapper -lpthread"
