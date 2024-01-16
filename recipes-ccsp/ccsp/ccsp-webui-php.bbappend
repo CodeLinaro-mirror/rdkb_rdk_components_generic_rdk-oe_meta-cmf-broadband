@@ -1,5 +1,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 SRC_URI += "file://logo_rdk.png"
+PV_kirkstone = "${RDK_RELEASE}+git${SRCPV}"
 
 do_install_prepend() {
     install -d ${S}/../Styles/xb3/code/CSRF-Protector-PHP
