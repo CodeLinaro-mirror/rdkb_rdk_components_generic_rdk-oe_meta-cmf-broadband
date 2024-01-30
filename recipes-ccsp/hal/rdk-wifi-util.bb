@@ -15,7 +15,7 @@ SRCREV_rdk-wifi-util = "${AUTOREV}"
 SRCREV_FORMAT = "rdk-wifi-util"
 
 PV = "${RDK_RELEASE}+git${SRCPV}"
-S = "${WORKDIR}/git/util/"
+S = "${WORKDIR}/git/util"
 
 # Add flags to support mesh wifi if the feature is available.
 CFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'meshwifi', '-DENABLE_FEATURE_MESHWIFI', '', d)}"
