@@ -1,3 +1,5 @@
+CFLAGS_append  += " ${@bb.utils.contains('DISTRO_FEATURES', 'rdkb_cellular_manager_mm', ' -DFEATURE_RDKB_CELLULAR_MANAGER', '', d)}"
+
 do_install_append_class-target () {
          DISTRO_OneWiFi_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','OneWifi','true','false',d)}"
          if [ $DISTRO_OneWiFi_ENABLED = 'false' ]; then
