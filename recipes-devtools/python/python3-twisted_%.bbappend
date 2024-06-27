@@ -1,1 +1,1 @@
-RDEPENDS:${PN}-conch_remove_kirkstone_broadband = "${PYTHON_PN}-cryptography"
+RDEPENDS:${PN}-conch_remove_kirkstone = "${PYTHON_PN}-cryptography"
