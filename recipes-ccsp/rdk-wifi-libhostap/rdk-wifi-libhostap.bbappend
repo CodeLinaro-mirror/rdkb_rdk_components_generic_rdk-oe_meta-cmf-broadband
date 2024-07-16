@@ -4,8 +4,9 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 S = "${WORKDIR}/git"
 
-SRC_URI += "git://w1.fi/hostap.git;protocol=https;branch=main;destsuffix=${S}/source/hostap-2.10"
-SRCREV = "9d07b9447e76059a2ddef2a879c57d0934634188"
+SRC_URI += "git://w1.fi/hostap.git;protocol=https;branch=main;destsuffix=${S}/source/hostap-${HOSTAPD_PV};name=${HOSTAPD_PV}"
+SRCREV_2.10 = "9d07b9447e76059a2ddef2a879c57d0934634188"
+SRCREV_2.11 = "fe36750b39a095f0a13bfed1c88a885592be4083"
 
 SRC_URI += "https://w1.fi/cgit/hostap/snapshot/hostap_2_9.tar.gz"
 SRC_URI[sha256sum] = "cb8ddbab4bf715aeeae67fbb06d85995fccb6f6180968247ea1aff250115ad44"
