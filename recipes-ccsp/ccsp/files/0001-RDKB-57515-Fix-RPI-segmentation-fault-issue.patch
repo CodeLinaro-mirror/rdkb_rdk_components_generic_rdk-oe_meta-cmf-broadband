@@ -1,0 +1,55 @@
+From 619f0c22d1f6e4d31b924046b20f66f2cf9a543b Mon Sep 17 00:00:00 2001
+From: vbagor712 <Vikas_Bagora@comcast.com>
+Date: Wed, 16 Oct 2024 18:15:16 +0000
+Subject: [PATCH] RDKB-57515: Fix RPI segmentation fault issue.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Reason for change:
+- The cherry-pick issue wherein PSM call gets invoked even the bus
+  funtion was successful.
+
+Test Procedure:
+- Tested in RPI and RDKB platforms and no crash observed.
+
+Risks: None
+ 
+Priority: P0
+ 
+Signed-off-by: vbagor712 <vikas_bagora@comcast.com> 
+
+Change-Id: I69614141f8287c72f3a5d7e4c52c3e1b1ce42fdb
+---
+ source/core/wifi_mgr.c   | 2 --
+ source/db/wifi_db_apis.c | 1 -
+ 2 files changed, 3 deletions(-)
+
+diff --git a/source/core/wifi_mgr.c b/source/core/wifi_mgr.c
+index 74230bc..d38c4a5 100644
+--- a/source/core/wifi_mgr.c
++++ b/source/core/wifi_mgr.c
+@@ -1488,8 +1488,6 @@ int get_all_param_from_psm_and_set_into_db(void)
+                     return 0;
+                 }
+                 strncpy(last_reboot_reason, (char *)data.raw_data.bytes, data.raw_data_len);
+-                get_wifi_last_reboot_reason_psm_value(last_reboot_reason);
+-
+                 get_bus_descriptor()->bus_data_free_fn(&data);
+             }
+         } else {
+diff --git a/source/db/wifi_db_apis.c b/source/db/wifi_db_apis.c
+index b34e481..cf5073e 100644
+--- a/source/db/wifi_db_apis.c
++++ b/source/db/wifi_db_apis.c
+@@ -4414,7 +4414,6 @@ void *start_wifidb_func(void *arg)
+                 return NULL;
+             }
+             strncpy(last_reboot_reason, (char *)data.raw_data.bytes, data.raw_data_len);
+-            get_wifi_last_reboot_reason_psm_value(last_reboot_reason);
+             get_bus_descriptor()->bus_data_free_fn(&data);
+         } else {
+             get_wifi_last_reboot_reason_psm_value(last_reboot_reason);
+-- 
+2.47.0
+
