@@ -39,7 +39,6 @@ CFLAGS_append = " \
     "
 LDFLAGS += " -lprivilege"
 LDFLAGS_append = " -ldbus-1"
-LDFLAGS_remove_morty = " -ldbus-1"
 LDFLAGS += " -lgobject-2.0 -lgio-2.0 -lglib-2.0 -lgudev-1.0 -lqmi-glib"
 
 CFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'safec',  ' `pkg-config --cflags libsafec`', '-fPIC', d)}"
