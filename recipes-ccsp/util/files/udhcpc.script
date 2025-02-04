@@ -7,7 +7,7 @@ source /etc/utopia/service.d/log_capture_path.sh
 source /etc/device.properties
 source /etc/log_timestamp.sh
 
-RPI_SPECIFIC=`grep -i "BOX_TYPE" /etc/device.properties  | cut -f2 -d=`
+RPI_SPECIFIC=$BOX_TYPE
 
 mta_dhcp_option_received=0
 echo "****************** udhcpc.script called*************"
