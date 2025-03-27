@@ -30,16 +30,3 @@ index 9e348a2..3dfe375 100644
  };
  
  static const char *const jp_op_class_cc[] = {
-diff --git a/source/hostap-2.9/src/common/ieee802_11_common.c b/source/hostap-2.9/src/common/ieee802_11_common.c
-index a081f87..22a0bea 100755
---- a/source/hostap-2.9/src/common/ieee802_11_common.c
-+++ b/source/hostap-2.9/src/common/ieee802_11_common.c
-@@ -929,7 +929,7 @@
- 	"AL", "AM", "AT", "AZ", "BA", "BE", "BG", "BY", "CH", "CY", "CZ", "DE",
- 	"DK", "EE", "EL", "ES", "FI", "FR", "GE", "HR", "HU", "IE", "IS", "IT",
- 	"LI", "LT", "LU", "LV", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT",
--	"RO", "RS", "RU", "SE", "SI", "SK", "TR", "UA", "UK", NULL
-+	"RO", "RS", "RU", "SE", "SI", "SK", "TR", "UA", "UK", "GB", NULL
- };
- 
- static const char *const jp_op_class_cc[] = {
