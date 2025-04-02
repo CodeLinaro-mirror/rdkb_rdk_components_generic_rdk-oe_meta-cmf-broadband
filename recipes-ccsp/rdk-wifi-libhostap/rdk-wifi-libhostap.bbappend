@@ -18,9 +18,7 @@ file://2.10/009-RDKB-44454-Store-assoc-request-in-sta-struct.patch ',\
 
 SRC_URI_append = " \
 ${@bb.utils.contains('DISTRO_FEATURES', 'HOSTAPD_2_11', '\
-file://2.11/comcast_changes_merged_to_source_2_11.patch \
-file://2.11/wpa3_compatibility_hostap_2_11.patch \
-file://2.11/wpa3_compatibility_telem_hostap_2_11.patch ',\
+file://2.11/comcast_changes_merged_to_source_2_11.patch ',\
 ' ', d)}"
 
 
