@@ -31,15 +31,3 @@ index c541926..883a755 100644
  	os_free(sta);
  }
  
-diff --git a/source/hostap-2.10/src/ap/sta_info.h b/source/hostap-2.10/src/ap/sta_info.h
-index af8f171..3e1af86 100644
---- a/source/hostap-2.10/src/ap/sta_info.h
-+++ b/source/hostap-2.10/src/ap/sta_info.h
-@@ -333,6 +333,8 @@ struct sta_info {
- #ifdef CONFIG_PASN
- 	struct pasn_data *pasn;
- #endif /* CONFIG_PASN */
-+	u8 *assoc_req;
-+	size_t assoc_req_len;
- };
- 
