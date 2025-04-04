@@ -11,16 +11,8 @@ SRCREV_2.11 = "d945ddd368085f255e68328f2d3b020ceea359af"
 SRC_URI_append = " \
 ${@bb.utils.contains('DISTRO_FEATURES', 'HOSTAPD_2_10', '\
 file://2.10/005_RDKB_40014_Integrate_hostapd_2_10.patch \
-file://2.10/006_RDKB_45281_Added_Wi-Fi_WPS_event_notify_callback_handling.patch \
-file://2.10/007_RDKB_45694_Libhostap_changes_to_support_Onewifi_Sharman.patch \
 file://2.10/009-RDKB-44454-Store-assoc-request-in-sta-struct.patch ',\
 ' ', d)}"
-
-SRC_URI_append = " \
-${@bb.utils.contains('DISTRO_FEATURES', 'HOSTAPD_2_11', '\
-file://2.11/comcast_changes_merged_to_source_2_11.patch ',\
-' ', d)}"
-
 
 do_configure_append() {
 ${@bb.utils.contains('DISTRO_FEATURES', 'HOSTAPD_2_11', 'echo "CONFIG_OWE=y" >> ${S}/source/hostap-${HOSTAPD_PV}/hostapd/.config', '',d)}
