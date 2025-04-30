@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${S}/src/import/LICENSE;md5=e0b1ae637439c7d6f4487fb90
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;branch=main;protocol=https;name=Unified-wifi-mesh-cli"
 PV = "git${SRCPV}"
-SRCREV_Unified-wifi-mesh-cli = "5d8f0828b0528f02c1452b6a9d3caadf70d96c95"
+SRCREV_Unified-wifi-mesh-cli = "77e38da216294046c808cfe14005ff78330c639f"
 SRCREV_FORMAT = "Unified-wifi-mesh-cli"
 
 GO_IMPORT = "import"
@@ -53,9 +53,7 @@ do_compile() {
 
 do_install() {
         install -d ${D}/usr/bin
-        install -d ${D}/usr/ccsp/EasyMesh
         install -m 755 ${S}/src/import/src/cli/onewifi_em_cli  ${D}/usr/bin   
-        install -m 755 ${S}/src/import/src/cli/onewifi_em_cli  ${D}/usr/ccsp/EasyMesh
 }
 
-FILES_${PN} += " ${bindir}/* /usr/ccsp/EasyMesh/* "
+FILES_${PN} += " ${bindir}/*  "

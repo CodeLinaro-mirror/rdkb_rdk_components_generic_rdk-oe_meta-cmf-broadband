@@ -7,11 +7,14 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;branch=main;protocol=https;name=Unified-wifi-mesh"
 PV = "git${SRCPV}"
-SRCREV_Unified-wifi-mesh = "5d8f0828b0528f02c1452b6a9d3caadf70d96c95"
+SRCREV_Unified-wifi-mesh = "77e38da216294046c808cfe14005ff78330c639f"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
 SRC_URI += "git://github.com/rdkcentral/OneWifi.git;branch=develop;protocol=https;name=OneWifi;destsuffix=git/OneWifi"
-SRCREV_OneWifi = "fa41ece5df6e6589f70fcb5b554c1a835c8d0409"
+SRCREV_OneWifi = "e0c59de1c17f4f3ba501bd336887739c2e7f5a4c"
+
+SRC_URI += " file://em_agent.service"
+SRC_URI += " file://em_ctrl.service"
 
 S = "${WORKDIR}/git"
 
@@ -43,9 +46,11 @@ LDFLAGS_append = " \
 
 do_install_append() {
     install -d ${D}/usr/ccsp/EasyMesh
+    install -d ${D}${systemd_unitdir}/system
     install -m 644 ${S}/install/bin/*  ${D}/usr/ccsp/EasyMesh
-    install -m 755 ${D}/usr/bin/*  ${D}/usr/ccsp/EasyMesh
+    install -D -m 0644 ${WORKDIR}/em_*.service ${D}${systemd_unitdir}/system/
 }
 
 FILES_${PN} += "${libdir}/*.so*  ${bindir}/* /usr/ccsp/EasyMesh/* "
+FILES_${PN} += "${systemd_unitdir}/system/* "
 
