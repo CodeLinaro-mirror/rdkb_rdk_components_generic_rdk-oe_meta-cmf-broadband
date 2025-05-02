@@ -7,11 +7,11 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;branch=main;protocol=https;name=Unified-wifi-mesh"
 PV = "git${SRCPV}"
-SRCREV_Unified-wifi-mesh = "77e38da216294046c808cfe14005ff78330c639f"
+SRCREV_Unified-wifi-mesh = "917744996a4d97e625157124ec7a50674b85b66b"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
 SRC_URI += "git://github.com/rdkcentral/OneWifi.git;branch=develop;protocol=https;name=OneWifi;destsuffix=git/OneWifi"
-SRCREV_OneWifi = "e0c59de1c17f4f3ba501bd336887739c2e7f5a4c"
+SRCREV_OneWifi = "4acc4b4633a70e1bd19d8ed4f08f1585ecce8415"
 
 SRC_URI += " file://em_agent.service"
 SRC_URI += " file://em_ctrl.service"
