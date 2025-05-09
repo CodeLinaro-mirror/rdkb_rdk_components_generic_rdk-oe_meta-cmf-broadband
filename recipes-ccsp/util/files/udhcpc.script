@@ -16,6 +16,14 @@ echo "****************** udhcpc.script called*************"
 RESOLV_CONF="/etc/resolv.conf"
 RESOLV_CONF_TMP="/tmp/resolv_tmp.conf"
 over_ride_RESOLV_CONF=0
+
+have_bin_ip=0
+if [ -x /sbin/ip.iproute2 ]; then
+  have_bin_ip=1
+  # Allow to set default broadcast address in case of missed 0x1c option from server
+  BROADCAST="broadcast +"
+fi
+
 [ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
 [ -n "$subnet" ] && NETMASK="netmask $subnet"
 
@@ -233,11 +241,6 @@ parse_dhcp_option()
      echo "$OPTION_FORMAT"
 
 }
-
-have_bin_ip=0
-if [ -x /sbin/ip.iproute2 ]; then
-  have_bin_ip=1
-fi
 
 echo "===$1==="
 
