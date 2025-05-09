@@ -22,3 +22,8 @@
 if [ "X$DISTRO_NAME" != "X" ]; then
     echo "DISTRO_FEATURES_append =\" $DISTRO_NAME\"" >> conf/local.conf
 fi
+
+# Flag to include the "download_t2_profile.sh" script from the telemetry component
+if [ "${T2_WITHOUT_WEBCONFIG}" = "y" ]; then
+    echo "DISTRO_FEATURES += \"t2_without_webconfig\"" >> conf/local.conf
+fi
