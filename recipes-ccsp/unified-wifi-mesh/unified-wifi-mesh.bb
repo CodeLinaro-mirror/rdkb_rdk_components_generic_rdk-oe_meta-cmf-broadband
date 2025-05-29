@@ -7,19 +7,20 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;branch=main;protocol=https;name=Unified-wifi-mesh"
 PV = "git${SRCPV}"
-SRCREV_Unified-wifi-mesh = "917744996a4d97e625157124ec7a50674b85b66b"
+SRCREV_Unified-wifi-mesh = "4eca0f60752cb76a6e5ac86b10ba08e2ce6210bd"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
 SRC_URI += "git://github.com/rdkcentral/OneWifi.git;branch=develop;protocol=https;name=OneWifi;destsuffix=git/OneWifi"
-SRCREV_OneWifi = "4acc4b4633a70e1bd19d8ed4f08f1585ecce8415"
+SRCREV_OneWifi = "5f68e4e1d965d7ceaf378a4e0bd94f8d2dcbcccd"
 
 SRC_URI += " file://em_agent.service"
 SRC_URI += " file://em_ctrl.service"
 
 S = "${WORKDIR}/git"
 
-DEPENDS = " ccsp-one-wifi rbus halinterface mariadb mysql-connector-cpp "
+DEPENDS = " ccsp-one-wifi rbus halinterface mariadb "
 DEPENDS += "gcc-sanitizers"
+RDEPENDS:${PN} += "mariadb "
 
 inherit autotools pkgconfig systemd
 
@@ -30,7 +31,8 @@ CPPFLAGS_append = " \
     -I${STAGING_INCDIR}/dbus-1.0 \
     -I${STAGING_LIBDIR}/dbus-1.0/include \
 "
-CPPFLAGS_append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 "
+CPPFLAGS_append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 -D_PLATFORM_BANANAPI_R4_ "
+CFLAGS_append = " -D_PLATFORM_BANANAPI_R4_ "
 
 LDFLAGS_append = " \
     -lm \
@@ -41,7 +43,6 @@ LDFLAGS_append = " \
     -lssl \
     -lcrypto \
     -lrbus \
-    -lmysqlcppconn \
 "
 
 do_install_append() {
