@@ -29,6 +29,15 @@ CFLAGS_append = " -g -DEASY_MESH_NODE -DEM_APP -fPIC "
 
 LDFLAGS_append = " -lemcli "
 
+do_fetch_mod () {
+	export GOPATH="${S}"
+	cd ${S}/src/import/src/cli
+	go get -a
+}
+do_fetch_mod[network] = "1"
+
+addtask fetch_mod after do_unpack do_prepare_recipe_sysroot before do_configure
+
 do_compile() {
 	export GOARCH="${TARGET_GOARCH}"
 	export GOROOT="${STAGING_LIBDIR}/go"
@@ -43,12 +52,11 @@ do_compile() {
 	export CGO_CFLAGS="${TARGET_CFLAGS} ${CFLAGS}"
 	export CGO_LDFLAGS="${TARGET_LDFLAGS} ${LDFLAGS}"
  
-        cd ${S}/src/import/src/cli
-        go get -a
+	cd ${S}/src/import/src/cli
 	oe_runmake build 
-        cd -
-        # For clean task
-        chmod -R u+w ${S}/pkg
+	cd -
+	# For clean task
+	chmod -R u+w ${S}/pkg
 }
 
 do_install() {
