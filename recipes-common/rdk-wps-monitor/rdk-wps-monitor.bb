@@ -8,11 +8,12 @@ PV = "1.0+git${SRCPV}"
 PR = "r4"
 
 # Fetch the source code
-SRC_URI = "git://github.com/rdkcentral/broadband-utils.git;protocol=https;branch=main \
+SRC_URI = "${CMF_GITHUB_ROOT}/broadband-utils.git;protocol=git;nobranch=1 \
            file://netlink-button-monitor.service \
           "
 
-SRCREV = "41ab49a126cef8d68f128799aae1e7b237e25939"
+PV = "1.0.0"
+SRCREV = "10bae35768d234e969723aa51e9016f116f0870e"
 
 S = "${WORKDIR}/git"
 
