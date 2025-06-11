@@ -8,7 +8,7 @@ PV = "1.0+git${SRCPV}"
 PR = "r4"
 
 # Fetch the source code
-SRC_URI = "${CMF_GITHUB_ROOT}/broadband-utils.git;protocol=git;nobranch=1 \
+SRC_URI = "${CMF_GITHUB_ROOT}/broadband-utils;protocol=https;nobranch=1 \
            file://netlink-button-monitor.service \
           "
 
