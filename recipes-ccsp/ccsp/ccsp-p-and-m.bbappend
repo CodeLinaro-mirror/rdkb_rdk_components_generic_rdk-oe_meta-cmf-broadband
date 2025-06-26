@@ -11,4 +11,8 @@ do_compile_prepend () {
     if ${@bb.utils.contains('DISTRO_FEATURES', 'resource_optimization', 'true', 'false', d)}; then
         sed -i '2i <?define FEATURE_RESOURCE_OPTIMIZATION=True?>' ${S}/config-arm/TR181-USGv2.XML
     fi
+
+    if ${@bb.utils.contains('CFLAGS', '-DRBUS_WAN_IP', 'true', 'false', d)}; then
+        sed -i '2i <?define RBUS_WAN_IP=True?>' ${S}/config-arm/TR181-USGv2.XML
+    fi
 }
