@@ -1,8 +1,4 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-PV_kirkstone = "${RDK_RELEASE}+git${SRCPV}"
-
-SRC_URI_remove = "git://${RDK_GIT}/rdk/rdkb/components/opensource/ccsp/webui/generic;protocol=${RDK_GIT_PROTOCOL};branch=${CCSP_GIT_BRANCH};name=webui"
-SRC_URI += "${CMF_GIT_ROOT}/rdkb/components/opensource/ccsp/webui;protocol=${CMF_GIT_PROTOCOL};branch=${CMF_GIT_BRANCH};name=webui"
 
 SRC_URI_remove = "git://${RDK_GIT}/rdk/rdkb/devices/rdkbemu/rdkbemu_xb3;protocol=${RDK_GIT_PROTOCOL};branch=${CCSP_GIT_BRANCH};destsuffix=xb3;name=xb3"
 SRC_URI += "${CMF_GIT_ROOT}/rdkb/devices/rdkbemu/rdkbemu_xb3;protocol=${CMF_GIT_PROTOCOL};branch=${CMF_GIT_BRANCH};destsuffix=xb3;name=xb3"
