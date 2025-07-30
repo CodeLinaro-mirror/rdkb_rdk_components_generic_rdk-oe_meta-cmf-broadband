@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${S}/src/import/LICENSE;md5=e0b1ae637439c7d6f4487fb90
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;branch=main;protocol=https;name=Unified-wifi-mesh-cli"
 PV = "git${SRCPV}"
-SRCREV_Unified-wifi-mesh-cli = "4eca0f60752cb76a6e5ac86b10ba08e2ce6210bd"
+SRCREV_Unified-wifi-mesh-cli = "ed1964a5d69bd606c0a2068e2de0c6e428c76c16"
 SRCREV_FORMAT = "Unified-wifi-mesh-cli"
 
 GO_IMPORT = "import"
@@ -61,7 +61,9 @@ do_compile() {
 
 do_install() {
         install -d ${D}/usr/bin
-        install -m 755 ${S}/src/import/src/cli/onewifi_em_cli  ${D}/usr/bin   
+        install -d ${D}/nvram
+        install -m 755 ${S}/src/import/src/cli/onewifi_em_cli  ${D}/usr/bin
+        install -m 664 ${S}/src/import/install/config/*  ${D}/nvram 
 }
 
-FILES_${PN} += " ${bindir}/*  "
+FILES_${PN} += " ${bindir}/* /nvram/* "

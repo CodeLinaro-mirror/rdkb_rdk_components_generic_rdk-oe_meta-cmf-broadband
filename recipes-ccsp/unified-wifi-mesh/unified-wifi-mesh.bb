@@ -7,14 +7,18 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;branch=main;protocol=https;name=Unified-wifi-mesh"
 PV = "git${SRCPV}"
-SRCREV_Unified-wifi-mesh = "4eca0f60752cb76a6e5ac86b10ba08e2ce6210bd"
+SRCREV_Unified-wifi-mesh = "ed1964a5d69bd606c0a2068e2de0c6e428c76c16"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
 SRC_URI += "git://github.com/rdkcentral/OneWifi.git;branch=develop;protocol=https;name=OneWifi;destsuffix=git/OneWifi"
-SRCREV_OneWifi = "5f68e4e1d965d7ceaf378a4e0bd94f8d2dcbcccd"
+SRCREV_OneWifi = "5924baad3842f75f50569e73c42b80e11c0454dc"
 
-SRC_URI += " file://em_agent.service"
-SRC_URI += " file://em_ctrl.service"
+SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://ext_em_agent.service', ' file://em_agent.service', d)}"
+SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://em_ctrl.service', d)}"
+SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_mysql_db_pre.sh', d)}"
+SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_mysql_db_post.sh', d)}"
+SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_agent_pre.sh', d)}"
+SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://setup_ext_pre.sh', '', d)}"
 
 S = "${WORKDIR}/git"
 
@@ -31,7 +35,7 @@ CPPFLAGS_append = " \
     -I${STAGING_INCDIR}/dbus-1.0 \
     -I${STAGING_LIBDIR}/dbus-1.0/include \
 "
-CPPFLAGS_append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 -D_PLATFORM_BANANAPI_R4_ "
+CPPFLAGS_append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 -D_PLATFORM_BANANAPI_R4_ -DAL_SAP "
 CFLAGS_append = " -D_PLATFORM_BANANAPI_R4_ "
 
 LDFLAGS_append = " \
@@ -49,8 +53,17 @@ do_install_append() {
     install -d ${D}/usr/ccsp/EasyMesh
     install -d ${D}${systemd_unitdir}/system
     install -m 644 ${S}/install/bin/*  ${D}/usr/ccsp/EasyMesh
+    install -m 755 ${S}/config/rdkb/banana-pi/setup_veth*.sh  ${D}/usr/ccsp/EasyMesh
+    install -m 755 ${WORKDIR}/setup_*.sh ${D}/usr/ccsp/EasyMesh
+    DISTRO_EM_EXT_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','em_extender','true','false',d)}"
+    if [ $DISTRO_EM_EXT_ENABLED = 'true' ]; then
+       mv ${WORKDIR}/ext_em_agent.service ${WORKDIR}/em_agent.service
+    fi
     install -D -m 0644 ${WORKDIR}/em_*.service ${D}${systemd_unitdir}/system/
 }
+
+SYSTEMD_SERVICE_${PN} = " em_agent.service"
+SYSTEMD_SERVICE_${PN} += " ${@bb.utils.contains('DISTRO_FEATURES','em_extender','',' em_ctrl.service',d)}"
 
 FILES_${PN} += "${libdir}/*.so*  ${bindir}/* /usr/ccsp/EasyMesh/* "
 FILES_${PN} += "${systemd_unitdir}/system/* "

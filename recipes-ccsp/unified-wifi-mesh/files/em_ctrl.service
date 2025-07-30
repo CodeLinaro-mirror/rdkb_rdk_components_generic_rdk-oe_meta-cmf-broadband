@@ -18,12 +18,14 @@
 ##########################################################################
 [Unit]
 Description=EasyMesh Controller service
-After=onewifi.service mysqld.service
+After=mysqld.service ieee1905_em_ctrl.service
 
 [Service]
 Type=forking
 WorkingDirectory=/usr/ccsp/EasyMesh
+ExecStartPre=/bin/sh -c '/usr/ccsp/EasyMesh/setup_mysql_db_pre.sh'
 ExecStart=/bin/sh -c '/usr/bin/onewifi_em_ctrl bpi\@root >> /tmp/em_ctrl.log &'
+ExecStartPost=/bin/sh -c '/usr/ccsp/EasyMesh/setup_mysql_db_post.sh'
 Restart=always
 
 

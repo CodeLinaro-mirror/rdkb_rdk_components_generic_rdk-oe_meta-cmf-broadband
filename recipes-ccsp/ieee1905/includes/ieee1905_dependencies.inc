@@ -25,23 +25,31 @@ SRC_URI += " \
     crate://crates.io/cassowary/0.3.0 \
     crate://crates.io/cfg-if/1.0.1 \
     crate://crates.io/clap/4.5.40 \
+    crate://crates.io/clap/4.5.41 \
     crate://crates.io/clap_builder/4.5.40 \
+    crate://crates.io/clap_builder/4.5.41 \
     crate://crates.io/clap_derive/4.5.40 \
+    crate://crates.io/clap_derive/4.5.41 \
     crate://crates.io/clap_lex/0.7.5 \
     crate://crates.io/colorchoice/1.0.4 \
     crate://crates.io/console-api/0.8.1 \
     crate://crates.io/console-subscriber/0.4.1 \
     crate://crates.io/core-foundation/0.9.4 \
     crate://crates.io/core-foundation-sys/0.8.7 \
+    crate://crates.io/convert_case/0.7.1 \
     crate://crates.io/crc32fast/1.4.2 \
     crate://crates.io/crossbeam-channel/0.5.15 \
     crate://crates.io/crossbeam-utils/0.8.21 \
     crate://crates.io/crossterm/0.25.0 \
     crate://crates.io/crossterm/0.28.1 \
+    crate://crates.io/crossterm/0.29.0 \
     crate://crates.io/crossterm_winapi/0.9.1 \
     crate://crates.io/cryptoki/0.10.0 \
     crate://crates.io/cryptoki-sys/0.4.0 \
     crate://crates.io/deranged/0.4.0 \
+    crate://crates.io/derive_more/2.0.1 \
+    crate://crates.io/derive_more-impl/2.0.1 \
+    crate://crates.io/document-features/0.2.11 \
     crate://crates.io/dlopen2/0.5.0 \
     crate://crates.io/either/1.15.0 \
     crate://crates.io/equivalent/1.0.2 \
@@ -66,6 +74,7 @@ SRC_URI += " \
     crate://crates.io/hashbrown/0.15.4 \
     crate://crates.io/hdrhistogram/7.5.4 \
     crate://crates.io/hex-literal/0.4.1 \
+    crate://crates.io/hex-literal/1.0.0 \
     crate://crates.io/heck/0.5.0 \
     crate://crates.io/http/1.3.1 \
     crate://crates.io/http-body/1.0.1 \
@@ -84,10 +93,13 @@ SRC_URI += " \
     crate://crates.io/ipnetwork/0.20.0 \
     crate://crates.io/itertools/0.14.0 \
     crate://crates.io/itoa/1.0.15 \
+    crate://crates.io/io-uring/0.7.8 \
     crate://crates.io/lazy_static/1.5.0 \
     crate://crates.io/libc/0.2.174 \
     crate://crates.io/libloading/0.8.8 \
     crate://crates.io/linux-raw-sys/0.4.15 \
+    crate://crates.io/linux-raw-sys/0.9.4 \
+    crate://crates.io/litrs/0.4.1 \
     crate://crates.io/lock_api/0.4.13 \
     crate://crates.io/log/0.4.27 \
     crate://crates.io/matchers/0.1.0 \
@@ -99,8 +111,10 @@ SRC_URI += " \
     crate://crates.io/mio/0.8.11 \
     crate://crates.io/mio/1.0.4 \
     crate://crates.io/netdev/0.33.0 \
+    crate://crates.io/netdev/0.36.0 \
     crate://crates.io/netlink-packet-core/0.7.0 \
     crate://crates.io/netlink-packet-route/0.21.0 \
+    crate://crates.io/netlink-packet-route/0.22.0 \
     crate://crates.io/netlink-packet-utils/0.5.2 \
     crate://crates.io/netlink-sys/0.8.7 \
     crate://crates.io/no-std-net/0.6.0 \
@@ -147,6 +161,7 @@ SRC_URI += " \
     crate://crates.io/regex-syntax/0.8.5 \
     crate://crates.io/rustc-demangle/0.1.25 \
     crate://crates.io/rustix/0.38.44 \
+    crate://crates.io/rustix/1.0.7 \
     crate://crates.io/rustversion/1.0.21 \
     crate://crates.io/ryu/1.0.20 \
     crate://crates.io/scopeguard/1.2.0 \
@@ -176,6 +191,7 @@ SRC_URI += " \
     crate://crates.io/thiserror-impl/1.0.69 \
     crate://crates.io/thread_local/1.1.9 \
     crate://crates.io/tokio/1.45.1 \
+    crate://crates.io/tokio/1.46.1 \
     crate://crates.io/tokio-macros/2.5.0 \
     crate://crates.io/tokio-stream/0.1.17 \
     crate://crates.io/tokio-tasker/1.2.0 \
