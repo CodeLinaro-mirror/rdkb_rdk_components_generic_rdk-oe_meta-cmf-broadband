@@ -1,6 +1,5 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
-PV_kirkstone = "${RDK_RELEASE}+git${SRCPV}"
 SRC_URI += "file://udhcpc.script"
 SRC_URI += "file://udhcpc.vendor_specific"
 SRC_URI += "file://dhcpswitch.sh"
