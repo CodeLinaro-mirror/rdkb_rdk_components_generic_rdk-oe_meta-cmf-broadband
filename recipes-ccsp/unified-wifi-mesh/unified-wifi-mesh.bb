@@ -48,6 +48,7 @@ LDFLAGS_append = " \
     -lcrypto \
     -lrbus \
 "
+EXTRA_OECONF_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', 'EM_EXTENDER=true', 'EM_EXTENDER=false', d)}"
 
 do_install_append() {
     install -d ${D}/usr/ccsp/EasyMesh
