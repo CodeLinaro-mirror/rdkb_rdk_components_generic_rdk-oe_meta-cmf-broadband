@@ -7,7 +7,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;branch=main;protocol=https;name=Unified-wifi-mesh"
 PV = "git${SRCPV}"
-SRCREV_Unified-wifi-mesh = "ed1964a5d69bd606c0a2068e2de0c6e428c76c16"
+SRCREV_Unified-wifi-mesh = "a74c2bc45342f2636992abecddbdae3ff6276a6b"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
 SRC_URI += "git://github.com/rdkcentral/OneWifi.git;branch=develop;protocol=https;name=OneWifi;destsuffix=git/OneWifi"
@@ -24,7 +24,7 @@ S = "${WORKDIR}/git"
 
 DEPENDS = " ccsp-one-wifi rbus halinterface mariadb "
 DEPENDS += "gcc-sanitizers"
-RDEPENDS:${PN} += "mariadb "
+RDEPENDS:${PN} += "${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' ', ' mariadb', d)}"
 
 inherit autotools pkgconfig systemd
 
@@ -58,7 +58,7 @@ do_install_append() {
     install -m 755 ${WORKDIR}/setup_*.sh ${D}/usr/ccsp/EasyMesh
     DISTRO_EM_EXT_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','em_extender','true','false',d)}"
     if [ $DISTRO_EM_EXT_ENABLED = 'true' ]; then
-       mv ${WORKDIR}/ext_em_agent.service ${WORKDIR}/em_agent.service
+       cp ${WORKDIR}/ext_em_agent.service ${WORKDIR}/em_agent.service
     fi
     install -D -m 0644 ${WORKDIR}/em_*.service ${D}${systemd_unitdir}/system/
 }
