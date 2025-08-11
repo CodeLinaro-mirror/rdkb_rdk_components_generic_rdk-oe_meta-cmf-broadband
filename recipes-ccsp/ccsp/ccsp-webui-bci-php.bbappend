@@ -1,6 +1,5 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/ccsp-webui-bci:"
 SRC_URI += "file://logo_rdk.png"
-PV_kirkstone = "${RDK_RELEASE}+git${SRCPV}"
 
 # we need to patch to code for RPi webui_bci
 do_webui_bci_patches() {

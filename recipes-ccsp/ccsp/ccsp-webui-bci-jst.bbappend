@@ -1,6 +1,5 @@
 do_compile[noexec] = "1"
 
-PV_kirkstone = "${RDK_RELEASE}+git${SRCPV}"
 FILESEXTRAPATHS_prepend := "${THISDIR}/ccsp-webui-bci:"
 SRC_URI += "file://logo_rdk.png"
 
