@@ -35,7 +35,8 @@ CPPFLAGS_append = " \
     -I${STAGING_INCDIR}/dbus-1.0 \
     -I${STAGING_LIBDIR}/dbus-1.0/include \
 "
-CPPFLAGS_append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 -D_PLATFORM_BANANAPI_R4_ -DAL_SAP "
+CPPFLAGS_append = " -g -DEASY_MESH_NODE -DEM_APP -std=c++17 -D_PLATFORM_BANANAPI_R4_ "
+CPPFLAGS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'with_alsap',' -DAL_SAP', '', d)}"
 CFLAGS_append = " -D_PLATFORM_BANANAPI_R4_ "
 
 LDFLAGS_append = " \
