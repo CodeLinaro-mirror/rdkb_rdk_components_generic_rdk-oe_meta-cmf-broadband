@@ -1,0 +1,36 @@
+From e347d297e68352f8b3632874a64df44ba47f752a Mon Sep 17 00:00:00 2001
+From: "kavya.shivalingaiah@sky.uk" <kavya.shivalingaiah@sky.uk>
+Date: Tue, 10 Jun 2025 13:23:02 +0100
+Subject: [PATCH] RDKB-58521 : WAN Manager Telemetry Markers 2.0 - Phase 1
+
+Reason for change: Implementing Telemetry support for Wanmanager.
+Scalable to handle further telemetry versions
+
+Test Procedure:
+Updated in Jira.
+
+Risks: none
+Priority: P1
+
+Change-Id: I0a4de2d79599f7a48da8d07e51443c0704e26eb6
+Signed-off-by: kavya.shivalingaiah@sky.uk <kavya.shivalingaiah@sky.uk>
+---
+ source/ccsp/components/include/ipc_msg.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/source/ccsp/components/include/ipc_msg.h b/source/ccsp/components/include/ipc_msg.h
+index 1c8877b6..4f749f11 100644
+--- a/source/ccsp/components/include/ipc_msg.h
++++ b/source/ccsp/components/include/ipc_msg.h
+@@ -190,6 +190,8 @@ typedef enum
+     IPOE_MSG_IHC_ECHO_RENEW_IPV6,
+     IPOE_MSG_IHC_ECHO_IPV4_UP,
+     IPOE_MSG_IHC_ECHO_IPV6_UP,
++    IPOE_MSG_IHC_ECHO_IPV4_IDLE,
++    IPOE_MSG_IHC_ECHO_IPV6_IDLE,
+ }ipoe_msg_type_t;
+ 
+ typedef struct
+-- 
+2.37.2
+
