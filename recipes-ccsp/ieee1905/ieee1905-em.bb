@@ -9,7 +9,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 # Source repository
 SRC_URI = "git://github.com/rdkcentral/rdkb-ieee1905.git;branch=main;protocol=https"
-SRCREV = "3ed1a57a1a3797f976e3bed23e0004dbf9421191"
+SRCREV = "56d84932432d384010f5749912840dfd3d9411fb"
 
 SRC_URI += "\
      ${@bb.utils.contains('DISTRO_FEATURES','em_extender',' file://ieee1905_em_ext_agent.service ',' file://ieee1905_em_agent.service ',d)} \
