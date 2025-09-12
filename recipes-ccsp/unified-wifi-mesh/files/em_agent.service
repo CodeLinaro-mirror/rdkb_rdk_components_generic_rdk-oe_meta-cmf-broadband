@@ -23,7 +23,7 @@ After=onewifi.service ieee1905_em_agent.service
 [Service]
 Type=forking
 WorkingDirectory=/usr/ccsp/EasyMesh
-ExecStartPre=/bin/sh -c 'sleep 25'
+ExecStartPre=/bin/sh -c 'sleep 60'
 ExecStartPre=/bin/sh -c '/usr/ccsp/EasyMesh/setup_agent_pre.sh'
 ExecStart=/bin/sh -c '/usr/bin/onewifi_em_agent >> /tmp/em_agent.log &'
 Restart=always
