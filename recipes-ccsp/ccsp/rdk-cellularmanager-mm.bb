@@ -44,8 +44,7 @@ CFLAGS_append = " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -I${STAGING_INCDIR}/libusb-1.0', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -I${STAGING_INCDIR}/libnl3', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -DDUID_UUID_ENABLE', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -DFEATURE_RNDIS_HAL', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -DFEATURE_MODEM_HAL', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' -DFEATURE_RNDIS_HAL', '-DFEATURE_MODEM_HAL', d)} \
     "
 LDFLAGS += " -lprivilege"
 LDFLAGS_append = " -ldbus-1"
@@ -57,7 +56,6 @@ LDFLAGS_append_kirkstone = " ${@bb.utils.contains('DISTRO_FEATURES', 'safec', ' 
 
 CFLAGS += "-I${STAGING_INCDIR}/libmm-glib/"
 CFLAGS += "-I${STAGING_INCDIR}/ModemManager/"
-CFLAGS += "-DMM_SUPPORT"
 #CFLAGS += "-DQMI_SUPPORT"
 
 LDFLAGS += "-lmm-glib"
