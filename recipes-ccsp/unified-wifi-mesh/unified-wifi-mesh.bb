@@ -22,7 +22,7 @@ SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://set
 
 S = "${WORKDIR}/git"
 
-DEPENDS = " ccsp-one-wifi rbus halinterface mariadb "
+DEPENDS = " ccsp-one-wifi rbus rdk-wifi-halif mariadb "
 DEPENDS += "gcc-sanitizers"
 RDEPENDS:${PN} += "${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' ', ' mariadb', d)}"
 
