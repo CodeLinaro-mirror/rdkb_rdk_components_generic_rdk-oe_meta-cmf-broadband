@@ -14,12 +14,11 @@ DEPENDS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_supp
 DEPENDS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' libmbim', " ", d)}"
 DEPENDS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' udev', " ", d)}"
 
-SRC_URI ="${CMF_GIT_ROOT}/rdkb/components/opensource/ccsp/RdkCellularManager-MM;protocol=${CMF_GIT_PROTOCOL};branch=${CMF_GIT_BRANCH};name=CellularManager-mm"
-
-SRCREV_CellularManager-mm = "${AUTOREV}"
+SRC_URI = "${CMF_GITHUB_ROOT}/cellular-modem-manager;protocol=https;nobranch=1;name=CellularManager-mm"
+SRCREV_CellularManager-mm = "7d8b076deb7a36a06ace17eefe4bc0abd312d04a"
 SRCREV_FORMAT = "CellularManager-mm"
-
-PV = "${RDK_RELEASE}+git${SRCPV}"
+PV = "1.0.0"
+PR = "r0"
 
 S = "${WORKDIR}/git"
 
