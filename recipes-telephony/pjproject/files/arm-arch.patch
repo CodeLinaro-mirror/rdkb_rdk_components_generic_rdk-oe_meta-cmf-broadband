@@ -1,0 +1,23 @@
+Subject: RDKBACCL-344: Bringup Telco Voice Manager in RDK-B BPI R4 router
+Source: Backport
+Name: asterisk
+Version: 18.15.1 (226868d1139af566c481265ef9657a1b33aa065e)
+Description: Asterisk is an Open Source PBX and telephony toolkit.
+
+See https://layers.openembedded.org/layerindex/recipe/189457/
+=================================================================
+Index: pjproject-2.12.1/configure.ac
+===================================================================
+--- pjproject-2.12.1.orig/configure.ac
++++ pjproject-2.12.1/configure.ac
+@@ -2268,6 +2268,10 @@ AC_ARG_ENABLE(libwebrtc,
+ 				 ac_webrtc_instset=neon
+ 				 ac_webrtc_cflags="-DWEBRTC_ARCH_ARM64"
+ 			    	 ;;
++			     arm-*)
++				 ac_webrtc_instset=neon
++				 ac_webrtc_cflags="-DWEBRTC_ARCH_ARMV7"
++				 ;;
+                              *)
+                                  ac_webrtc_instset=sse2
+                                  ;;

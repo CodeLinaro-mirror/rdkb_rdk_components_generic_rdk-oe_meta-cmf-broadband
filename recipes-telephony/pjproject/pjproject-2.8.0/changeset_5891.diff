@@ -1,0 +1,29 @@
+Subject: RDKBACCL-344: Bringup Telco Voice Manager in RDK-B BPI R4 router
+Source: Backport
+Name: asterisk
+Version: 18.15.1 (226868d1139af566c481265ef9657a1b33aa065e)
+Description: Asterisk is an Open Source PBX and telephony toolkit.
+
+See https://layers.openembedded.org/layerindex/recipe/189457/
+===================================================================
+
+Index: /pjproject/trunk/pjsip/src/pjsua2/endpoint.cpp
+===================================================================
+--- /pjproject/trunk/pjsip/src/pjsua2/endpoint.cpp	(revision 5890)
++++ /pjproject/trunk/pjsip/src/pjsua2/endpoint.cpp	(revision 5891)
+@@ -2146,7 +2146,8 @@
+ StringVector Endpoint::srtpCryptoEnum() throw(Error)
+ {
++    StringVector result;
++#if defined(PJMEDIA_HAS_SRTP) && (PJMEDIA_HAS_SRTP != 0)
+     unsigned cnt = PJMEDIA_SRTP_MAX_CRYPTOS;
+     pjmedia_srtp_crypto cryptos[PJMEDIA_SRTP_MAX_CRYPTOS];
+-    StringVector result;
+ 
+     PJSUA2_CHECK_EXPR(pjmedia_srtp_enum_crypto(&cnt, cryptos));
+@@ -2154,4 +2155,5 @@
+     for (unsigned i = 0; i < cnt; ++i)
+ 	result.push_back(pj2Str(cryptos[i].name));
++#endif
+ 
+     return result;

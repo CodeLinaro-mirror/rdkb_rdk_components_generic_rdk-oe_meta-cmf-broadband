@@ -1,0 +1,20 @@
+Subject: RDKBACCL-344: Bringup Telco Voice Manager in RDK-B BPI R4 router
+Source: Backport
+Name: asterisk
+Version: 18.15.1 (226868d1139af566c481265ef9657a1b33aa065e)
+Description: Asterisk is an Open Source PBX and telephony toolkit.
+
+See https://layers.openembedded.org/layerindex/recipe/189457/
+=================================================================
+Index: git/configure.ac
+===================================================================
+--- git.orig/configure.ac
++++ git/configure.ac
+@@ -8,6 +8,7 @@ AC_CANONICAL_HOST
+ 
+ # check existence of the package
+ AC_CONFIG_SRCDIR([main/asterisk.c])
++true || AC_CONFIG_SUBDIRS([menuselect])
+ 
+ AC_COPYRIGHT("Asterisk")
+ 

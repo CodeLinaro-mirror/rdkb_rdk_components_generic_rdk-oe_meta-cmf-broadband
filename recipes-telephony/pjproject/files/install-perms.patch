@@ -1,0 +1,29 @@
+Subject: RDKBACCL-344: Bringup Telco Voice Manager in RDK-B BPI R4 router
+Source: Backport
+Name: asterisk
+Version: 18.15.1 (226868d1139af566c481265ef9657a1b33aa065e)
+Description: Asterisk is an Open Source PBX and telephony toolkit.
+
+See https://layers.openembedded.org/layerindex/recipe/189457/
+=================================================================
+prevents
+
+| WARNING: pjproject-2.12.1-r0 do_package_qa: QA Issue: pjproject: /usr/lib/libpjsip-simple.so.2 is owned by uid 1000, which is the same as the user running bitbake. This may be due to host contamination [host-user-contaminated]
+
+
+Index: pjproject-2.12.1/Makefile
+===================================================================
+--- pjproject-2.12.1.orig/Makefile
++++ pjproject-2.12.1/Makefile
+@@ -122,9 +122,9 @@ cmp_wav:
+ install:
+ 	mkdir -p $(DESTDIR)$(libdir)/
+ 	if [ "$(PJ_EXCLUDE_PJSUA2)x" = "x" ] ; then \
+-	    cp -af $(APP_LIBXX_FILES) $(DESTDIR)$(libdir)/; \
++	    cp -dRf --preserve=mode,timestamps $(APP_LIBXX_FILES) $(DESTDIR)$(libdir)/; \
+ 	else \
+-	    cp -af $(APP_LIB_FILES) $(DESTDIR)$(libdir)/; \
++	    cp -dRf --preserve=mode,timestamps $(APP_LIB_FILES) $(DESTDIR)$(libdir)/; \
+ 	fi
+ 	mkdir -p $(DESTDIR)$(includedir)/
+ 	for d in pjlib pjlib-util pjnath pjmedia pjsip; do \
