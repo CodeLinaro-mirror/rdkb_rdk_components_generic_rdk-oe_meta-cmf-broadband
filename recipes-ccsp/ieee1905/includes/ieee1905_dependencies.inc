@@ -3,6 +3,7 @@ SRC_URI += " \
     crate://crates.io/adler2/2.0.1 \
     crate://crates.io/aho-corasick/1.1.3 \
     crate://crates.io/anyhow/1.0.98 \
+    crate://crates.io/anyhow/1.0.99 \
     crate://crates.io/anstream/0.6.19 \
     crate://crates.io/anstyle/1.0.11 \
     crate://crates.io/anstyle-parse/0.2.7 \
@@ -10,6 +11,7 @@ SRC_URI += " \
     crate://crates.io/async-stream/0.3.6 \
     crate://crates.io/async-stream-impl/0.3.6 \
     crate://crates.io/async-trait/0.1.88 \
+    crate://crates.io/async-trait/0.1.89 \
     crate://crates.io/anstyle-wincon/3.0.9 \
     crate://crates.io/atomic-waker/1.1.2 \
     crate://crates.io/autocfg/1.5.0 \
@@ -26,10 +28,13 @@ SRC_URI += " \
     crate://crates.io/cfg-if/1.0.1 \
     crate://crates.io/clap/4.5.40 \
     crate://crates.io/clap/4.5.41 \
+    crate://crates.io/clap/4.5.47 \
     crate://crates.io/clap_builder/4.5.40 \
     crate://crates.io/clap_builder/4.5.41 \
+    crate://crates.io/clap_builder/4.5.47 \
     crate://crates.io/clap_derive/4.5.40 \
     crate://crates.io/clap_derive/4.5.41 \
+    crate://crates.io/clap_derive/4.5.47 \
     crate://crates.io/clap_lex/0.7.5 \
     crate://crates.io/colorchoice/1.0.4 \
     crate://crates.io/console-api/0.8.1 \
@@ -103,6 +108,7 @@ SRC_URI += " \
     crate://crates.io/lock_api/0.4.13 \
     crate://crates.io/log/0.4.27 \
     crate://crates.io/matchers/0.1.0 \
+    crate://crates.io/matchers/0.2.0 \
     crate://crates.io/matchit/0.7.3 \
     crate://crates.io/memchr/2.7.5 \
     crate://crates.io/mime/0.3.17 \
@@ -112,6 +118,7 @@ SRC_URI += " \
     crate://crates.io/mio/1.0.4 \
     crate://crates.io/netdev/0.33.0 \
     crate://crates.io/netdev/0.36.0 \
+    crate://crates.io/netdev/0.37.3 \
     crate://crates.io/netlink-packet-core/0.7.0 \
     crate://crates.io/netlink-packet-route/0.21.0 \
     crate://crates.io/netlink-packet-route/0.22.0 \
@@ -121,6 +128,7 @@ SRC_URI += " \
     crate://crates.io/nom/7.1.3 \
     crate://crates.io/nom/8.0.0 \
     crate://crates.io/nu-ansi-term/0.46.0 \
+    crate://crates.io/nu-ansi-term/0.50.1 \
     crate://crates.io/num-traits/0.2.19 \
     crate://crates.io/num-conv/0.1.0 \
     crate://crates.io/object/0.36.7 \
@@ -176,6 +184,7 @@ SRC_URI += " \
     crate://crates.io/slab/0.4.10 \
     crate://crates.io/smallvec/1.15.1 \
     crate://crates.io/socket2/0.5.10 \
+    crate://crates.io/socket2/0.6.0 \
     crate://crates.io/strsim/0.11.1 \
     crate://crates.io/syn/2.0.104 \
     crate://crates.io/sync_wrapper/1.0.2 \
@@ -186,16 +195,20 @@ SRC_URI += " \
     crate://crates.io/time-macros/0.2.22 \
     crate://crates.io/tracing-appender/0.2.3 \
     crate://crates.io/thiserror/2.0.12 \
+    crate://crates.io/thiserror/2.0.16 \
     crate://crates.io/thiserror/1.0.69 \
     crate://crates.io/thiserror-impl/2.0.12 \
+    crate://crates.io/thiserror-impl/2.0.16 \
     crate://crates.io/thiserror-impl/1.0.69 \
     crate://crates.io/thread_local/1.1.9 \
     crate://crates.io/tokio/1.45.1 \
     crate://crates.io/tokio/1.46.1 \
+    crate://crates.io/tokio/1.47.1 \
     crate://crates.io/tokio-macros/2.5.0 \
     crate://crates.io/tokio-stream/0.1.17 \
     crate://crates.io/tokio-tasker/1.2.0 \
     crate://crates.io/tokio-util/0.7.15 \
+    crate://crates.io/tokio-util/0.7.16 \
     crate://crates.io/tonic/0.12.3 \
     crate://crates.io/tower/0.4.13 \
     crate://crates.io/tower/0.5.2 \
@@ -206,6 +219,7 @@ SRC_URI += " \
     crate://crates.io/tracing-core/0.1.34 \
     crate://crates.io/tracing-log/0.2.0 \
     crate://crates.io/tracing-subscriber/0.3.19 \
+    crate://crates.io/tracing-subscriber/0.3.20 \
     crate://crates.io/try-lock/0.2.5 \
     crate://crates.io/tui/0.19.0 \
     crate://crates.io/utf8parse/0.2.2 \

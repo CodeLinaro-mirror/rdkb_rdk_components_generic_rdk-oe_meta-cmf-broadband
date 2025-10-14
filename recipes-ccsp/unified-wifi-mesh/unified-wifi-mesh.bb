@@ -7,11 +7,11 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;branch=main;protocol=https;name=Unified-wifi-mesh"
 PV = "git${SRCPV}"
-SRCREV_Unified-wifi-mesh = "2e29a9cf63a3de4c4e385a08c714486e60e6a06c"
+SRCREV_Unified-wifi-mesh = "565a10bbf6b0c7bd8d9c81c41b3611f77fd02793"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
 SRC_URI += "git://github.com/rdkcentral/OneWifi.git;branch=develop;protocol=https;name=OneWifi;destsuffix=git/OneWifi"
-SRCREV_OneWifi = "55fa50d21ea1ada52ece078a9a23ed096c8c7500"
+SRCREV_OneWifi = "f924f1de23eb51ad5e99b968f3be38a3588a5b36"
 
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://ext_em_agent.service', ' file://em_agent.service', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://em_ctrl.service', d)}"
@@ -22,7 +22,7 @@ SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://set
 
 S = "${WORKDIR}/git"
 
-DEPENDS = " ccsp-one-wifi rbus rdk-wifi-halif mariadb "
+DEPENDS = " ccsp-one-wifi rbus rdk-wifi-halif mariadb gtest "
 DEPENDS += "gcc-sanitizers"
 RDEPENDS:${PN} += "${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' ', ' mariadb', d)}"
 
