@@ -22,11 +22,13 @@ SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://set
 
 S = "${WORKDIR}/git"
 
-DEPENDS = " ccsp-one-wifi rbus rdk-wifi-halif mariadb gtest "
+DEPENDS = " ccsp-one-wifi rbus rdk-wifi-halif mariadb gtest breakpad breakpad-wrapper"
 DEPENDS += "gcc-sanitizers"
 RDEPENDS:${PN} += "${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' ', ' mariadb', d)}"
 
-inherit autotools pkgconfig systemd
+inherit autotools pkgconfig systemd breakpad-wrapper
+CFLAGS += "-I${STAGING_INCDIR}/breakpad "
+CXXFLAGS += "-I${STAGING_INCDIR}/breakpad "
 
 CPPFLAGS_append = " \
     -I${STAGING_INCDIR} \
@@ -48,8 +50,13 @@ LDFLAGS_append = " \
     -lssl \
     -lcrypto \
     -lrbus \
+    -lbreakpadwrapper \
 "
 EXTRA_OECONF_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', 'EM_EXTENDER=true', 'EM_EXTENDER=false', d)}"
+
+#minidump support
+BREAKPAD_BIN_append = " onewifi_em_ctrl "
+BREAKPAD_BIN_append = " onewifi_em_agent"
 
 do_install_append() {
     install -d ${D}/usr/ccsp/EasyMesh
