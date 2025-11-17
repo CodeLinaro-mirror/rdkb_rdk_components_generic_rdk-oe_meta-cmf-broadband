@@ -63,6 +63,7 @@ LD = "${CC}"
 CXXFLAGS += "-Wno-deprecated"
 
 CLEANBROKEN = "1"
+RDEPENDS:${PN}-dev = ""
 
 python populate_packages:prepend () {
     libdir = d.expand("${libdir}")
