@@ -1,5 +1,5 @@
 # Ensure Rust and Cargo are available
-inherit cargo systemd
+inherit cargo systemd breakpad-wrapper
 
 DESCRIPTION = "IEEE 1905 Rust Program"
 LICENSE = "Apache-2.0"
@@ -15,6 +15,16 @@ SRC_URI += "\
      ${@bb.utils.contains('DISTRO_FEATURES','em_extender',' file://ieee1905_em_ext_agent.service ',' file://ieee1905_em_agent.service ',d)} \
      ${@bb.utils.contains('DISTRO_FEATURES','em_extender',' ',' file://ieee1905_em_ctrl.service ',d)} \
 "
+
+#Breakpad support
+DEPENDS = "breakpad breakpad-wrapper"
+CFLAGS += "-I${STAGING_INCDIR}/breakpad "
+CXXFLAGS += "-I${STAGING_INCDIR}/breakpad "
+
+LDFLAGS_append = " \
+    -lbreakpadwrapper \
+"
+BREAKPAD_BIN_append = " ieee1905-em"
 
 # Source directory
 S = "${WORKDIR}/git"
