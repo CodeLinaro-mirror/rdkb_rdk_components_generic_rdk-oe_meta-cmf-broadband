@@ -5,16 +5,18 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e0b1ae637439c7d6f4487fb90163c79a"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
-SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;branch=main;protocol=https;name=Unified-wifi-mesh"
-PV = "git${SRCPV}"
-SRCREV_Unified-wifi-mesh = "60cd678d9f05507408b54905e68b3c28fc6a99f2"
+SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh"
+SRC_URI += "file://pr-534.patch"
+PV_Unified-wifi-mesh = "v0.1.0"
+SRCREV_Unified-wifi-mesh = "f7cbc0057874477685a162f7bbc40be666cc3220"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
 SRC_URI += "git://github.com/rdkcentral/OneWifi.git;branch=develop;protocol=https;name=OneWifi;destsuffix=git/OneWifi"
-SRCREV_OneWifi = "5b004ceebdab58add8dab2029696f97b4c554c63"
+SRCREV_OneWifi = "b32832f8062ae47535973379954d65193f4c3880"
 
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', ' file://ext_em_agent.service', ' file://em_agent.service', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://em_ctrl.service', d)}"
+SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://em_cli.service', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_mysql_db_pre.sh', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_mysql_db_post.sh', d)}"
 SRC_URI += " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', '', ' file://setup_agent_pre.sh', d)}"
@@ -72,7 +74,7 @@ do_install_append() {
 }
 
 SYSTEMD_SERVICE_${PN} = " em_agent.service"
-SYSTEMD_SERVICE_${PN} += " ${@bb.utils.contains('DISTRO_FEATURES','em_extender','',' em_ctrl.service',d)}"
+SYSTEMD_SERVICE_${PN} += " ${@bb.utils.contains('DISTRO_FEATURES','em_extender','',' em_ctrl.service em_cli.service ',d)}"
 
 FILES_${PN} += "${libdir}/*.so*  ${bindir}/* /usr/ccsp/EasyMesh/* "
 FILES_${PN} += "${systemd_unitdir}/system/* "

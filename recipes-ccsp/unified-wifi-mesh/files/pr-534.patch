@@ -1,0 +1,24 @@
+From 75b1e9f1cfb0e1cd2a96f053b2542f64924cb7f8 Mon Sep 17 00:00:00 2001
+From: prashant-singh1 <prashant.singh8521@gmail.com>
+Date: Fri, 12 Dec 2025 20:39:29 +0530
+Subject: [PATCH] RDKBACCL-1335: Handle strncat buffer overflow for
+ get_network_tree_node_string()
+
+Signed-off-by: prashant-singh1 <prashant.singh8521@gmail.com>
+---
+ src/em/em_net_node.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/em/em_net_node.cpp b/src/em/em_net_node.cpp
+index b868eef9..eb3c29c8 100644
+--- a/src/em/em_net_node.cpp
++++ b/src/em/em_net_node.cpp
+@@ -284,7 +284,7 @@ void em_net_node_t::get_network_tree_node_string(char *str, em_network_node_t *n
+ 
+     }
+ 
+-    strncat(str, string, strlen(string));
++    strncat(str, string,  EM_LONG_IO_BUFF_SZ - strlen(str) - 1);
+ 
+     if ((node->type == em_network_node_data_type_array_obj) && (node->num_children > 0) &&
+             ((node->child[0]->type == em_network_node_data_type_number) ||

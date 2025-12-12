@@ -8,8 +8,9 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=b538373fe584898492d2ad3a91014d58"
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 # Source repository
-SRC_URI = "git://github.com/rdkcentral/ieee1905-rs.git;branch=main;protocol=https"
+SRC_URI = "git://github.com/rdkcentral/ieee1905-rs.git;nobranch=1;protocol=https"
 SRCREV = "053ae8ac049e54f7267c7ce2b7cfaeab84eab44e"
+PV = "v0.2.0"
 
 SRC_URI += "\
      ${@bb.utils.contains('DISTRO_FEATURES','em_extender',' file://ieee1905_em_ext_agent.service ',' file://ieee1905_em_agent.service ',d)} \

@@ -3,9 +3,9 @@ HOMEPAGE = "http://github.com/rdkcentral/unified-wifi-mesh"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://${S}/src/import/LICENSE;md5=e0b1ae637439c7d6f4487fb90163c79a"
 
-SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;branch=main;protocol=https;name=Unified-wifi-mesh-cli"
-PV = "git${SRCPV}"
-SRCREV_Unified-wifi-mesh-cli = "60cd678d9f05507408b54905e68b3c28fc6a99f2"
+SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh-cli"
+PV_Unified-wifi-mesh = "v0.1.0"
+SRCREV_Unified-wifi-mesh-cli = "f7cbc0057874477685a162f7bbc40be666cc3220"
 SRCREV_FORMAT = "Unified-wifi-mesh-cli"
 
 GO_IMPORT = "import"
@@ -31,7 +31,7 @@ LDFLAGS_append = " -lemcli "
 
 do_fetch_mod () {
 	export GOPATH="${S}"
-	cd ${S}/src/import/src/cli
+	cd ${S}/src/import/src/rdkb-cli
 	go get -a
 }
 do_fetch_mod[network] = "1"
@@ -52,7 +52,7 @@ do_compile() {
 	export CGO_CFLAGS="${TARGET_CFLAGS} ${CFLAGS}"
 	export CGO_LDFLAGS="${TARGET_LDFLAGS} ${LDFLAGS}"
  
-	cd ${S}/src/import/src/cli
+	cd ${S}/src/import/src/rdkb-cli
 	oe_runmake build 
 	cd -
 	# For clean task
@@ -62,8 +62,11 @@ do_compile() {
 do_install() {
         install -d ${D}/usr/bin
         install -d ${D}/nvram
-        install -m 755 ${S}/src/import/src/cli/onewifi_em_cli  ${D}/usr/bin
-        install -m 664 ${S}/src/import/install/config/*  ${D}/nvram 
+        install -d ${D}/nvram/static
+        install -m 755 ${S}/src/import/src/rdkb-cli/onewifi_em_cli  ${D}/usr/bin
+        install -m 664 ${S}/src/import/install/config/*  ${D}/nvram
+        install -m 664 ${S}/src/import/install/bin/Reset.json  ${D}/nvram
+        cp -rf ${S}/src/import/src/rdkb-cli/static/*  ${D}/nvram/static
 }
 
-FILES_${PN} += " ${bindir}/* /nvram/* "
+FILES_${PN} += " ${bindir}/* /nvram/* /nvram/static/* "
