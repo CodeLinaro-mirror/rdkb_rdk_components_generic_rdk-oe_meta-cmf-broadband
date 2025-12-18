@@ -4,6 +4,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=175792518e4ac015ab6696d16c4f607e"
 
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 DEPENDS = "ccsp-common-library rdk-logger utopia libunpriv halinterface glib-2.0 libqmi webconfig-framework curl trower-base64 msgpack-c libgudev rbus"
 DEPENDS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'safec', ' safec', " ", d)}"
@@ -19,6 +20,10 @@ SRCREV_CellularManager-mm = "7d8b076deb7a36a06ace17eefe4bc0abd312d04a"
 SRCREV_FORMAT = "CellularManager-mm"
 PV = "1.0.0"
 PR = "r0"
+
+SRC_URI += "file://0001-RDKBACCL-537-USB-Dongle-RNDIS-MODEM-type-support-to-.patch"
+SRC_URI += "file://0002-RDKBACCL-1275-wwan0-IP-is-not-available-in-LTE-cellu.patch"
+SRC_URI += "file://0003-RDKBACCL-1239-Intermittently-50-of-times-Network-unr.patch"
 
 S = "${WORKDIR}/git"
 
