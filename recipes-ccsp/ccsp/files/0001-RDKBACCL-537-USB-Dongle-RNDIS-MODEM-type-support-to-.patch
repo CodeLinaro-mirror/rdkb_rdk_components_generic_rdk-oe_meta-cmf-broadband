@@ -1,0 +1,72 @@
+From 875f83664aefe473612f0f67ba21b3ef5b57ef2c Mon Sep 17 00:00:00 2001
+From: Manigandan Gopalakrishnan <Manigandan_Gopalakrishnan@comcast.com>
+Date: Wed, 8 Oct 2025 16:18:29 +0530
+Subject: [PATCH 1/3] RDKBACCL-537: USB Dongle(RNDIS/MODEM type) support to
+ CellularManager
+
+Reason for change: Making use of existing WanManager Interface.2 index for RNDIS/USB "usb0" interface
+Test procedure: Tested RNDIS feature
+Risks: Low
+
+Signed-off-by: Manigandan Gopalakrishnan <Manigandan_Gopalakrishnan@comcast.com>
+---
+ source/CellularManager/cellular_hal_device_manager.c | 9 ++++++---
+ source/CellularManager/cellular_hal_device_manager.h | 4 ++--
+ 2 files changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/source/CellularManager/cellular_hal_device_manager.c b/source/CellularManager/cellular_hal_device_manager.c
+index c5bc77c..ccb29d7 100644
+--- a/source/CellularManager/cellular_hal_device_manager.c
++++ b/source/CellularManager/cellular_hal_device_manager.c
+@@ -205,6 +205,7 @@ static void* udev_eventhandler_thread (void *arg)
+     struct udev *udev;
+     struct udev_device *dev;
+     struct udev_monitor *mon;
++    char *interface;
+     int fd;
+ 
+     CcspTraceInfo (("%s - Started UDEV monitoring \n", __FUNCTION__));
+@@ -260,7 +261,9 @@ static void* udev_eventhandler_thread (void *arg)
+                         //Enable USB RNDIS HAL
+                         memcpy (&g_device_hal, &rndis_device_hal, sizeof(rndis_device_hal));
+                         g_device_hal.hal_init (&g_pstCtxInputStruct);
+-                        g_device_hal.hal_set_device_props (udev_device_get_property_value (dev, "INTERFACE"), 1);
++                        interface = udev_device_get_property_value(dev, "INTERFACE");
++                        CcspTraceInfo (("%s - USB interface name: [%s]\n", __FUNCTION__, interface));
++                        g_device_hal.hal_set_device_props (interface, 1);
+ 
+                         g_device_status = USB_DEVICE_ATTACHED;
+                         // release the lock
+@@ -476,11 +479,11 @@ int cellular_hal_device_init (CellularContextInitInputStruct *pstCtxInputStruct)
+ #if defined(FEATURE_RNDIS_HAL) || defined(FEATURE_MODEM_HAL)
+         //Initiate the thread for USB Event handling
+         pthread_create (&g_usb_eventhandler_thread, NULL,
+-                        &usb_eventhandler_thread, (void*) NULL);
++                        usb_eventhandler_thread, (void*) NULL);
+ 
+         //Initiate the thread for UDEV Event handling
+         pthread_create (&g_udev_eventhandler_thread, NULL,
+-                        &udev_eventhandler_thread, (void*) NULL);
++                        udev_eventhandler_thread, (void*) NULL);
+ 
+         // Now that listeners are setup, reset the USB port, this will bring the device to a known state
+         // and our listeners will catch the device.
+diff --git a/source/CellularManager/cellular_hal_device_manager.h b/source/CellularManager/cellular_hal_device_manager.h
+index 6bb0610..3d5e71f 100644
+--- a/source/CellularManager/cellular_hal_device_manager.h
++++ b/source/CellularManager/cellular_hal_device_manager.h
+@@ -197,9 +197,9 @@ int cellular_hal_device_get_device_information (CellularDeviceInfoStruct *devInf
+ int cellular_hal_device_get_data_interface (char *data_interface);
+ 
+ #ifdef FEATURE_MODEM_HAL
+-const DEVICE_HAL_ABSTRATCOR_ modem_device_hal;
++extern const DEVICE_HAL_ABSTRATCOR_ modem_device_hal;
+ #endif
+ #ifdef FEATURE_RNDIS_HAL
+-const DEVICE_HAL_ABSTRATCOR_ rndis_device_hal;
++extern const DEVICE_HAL_ABSTRATCOR_ rndis_device_hal;
+ #endif
+ #endif // __CELLULAR_HAL_DEVICE_MANAGER_
+-- 
+2.50.1
+

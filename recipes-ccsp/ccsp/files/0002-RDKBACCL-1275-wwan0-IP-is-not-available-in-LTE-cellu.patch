@@ -1,0 +1,32 @@
+From 06616c869df68884f523aeeb4b2114c668bf6ab7 Mon Sep 17 00:00:00 2001
+From: Manigandan Gopalakrishnan <Manigandan_Gopalakrishnan@comcast.com>
+Date: Mon, 1 Dec 2025 16:39:38 +0530
+Subject: [PATCH 2/3] RDKBACCL-1275: wwan0 IP is not available in LTE
+ (cellular) mode
+
+Reason for change: RDK-WanManager expects wwan0 interface to be up and running
+Test procedure: Found that wwan0 is assigned with IPv4 address
+Risks: Low
+
+Signed-off-by: Manigandan Gopalakrishnan <Manigandan_Gopalakrishnan@comcast.com>
+---
+ source/CellularManager/cellularmgr_cellular_apis.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/source/CellularManager/cellularmgr_cellular_apis.c b/source/CellularManager/cellularmgr_cellular_apis.c
+index 3827815..d1ea14f 100755
+--- a/source/CellularManager/cellularmgr_cellular_apis.c
++++ b/source/CellularManager/cellularmgr_cellular_apis.c
+@@ -634,6 +634,9 @@ int CellularMgrUpdatePhyStatus ( char *wan_ifname, CellularDeviceOpenStatus_t de
+             return RETURN_ERROR;
+         }
+ 
++        //RDK-WanManager expects interface to be up and running
++        v_secure_system("ip link set %s up", wan_ifname);
++
+         // Set Phy.Status
+         memset( paramName, 0, sizeof(paramName) );
+         memset( paramValue, 0, sizeof(paramValue) );
+-- 
+2.50.1
+

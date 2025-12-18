@@ -1,0 +1,47 @@
+From bfe529addc226ccd43c6c25c2dacdc37f2de3c59 Mon Sep 17 00:00:00 2001
+From: Manigandan Gopalakrishnan <Manigandan_Gopalakrishnan@comcast.com>
+Date: Tue, 16 Dec 2025 16:58:31 +0530
+Subject: [PATCH 3/3] RDKBACCL-1239: Intermittently(> 50 % of times), Network
+ unreachable observed in USB Tethering (RNDIS) Support
+
+Reason for change: Not required to send IP information from
+CellularManager-MM for RNDIS interface.
+Test procedure: Network unreachable issue is not observed.
+Risks: None
+
+Signed-off-by: Manigandan Gopalakrishnan <Manigandan_Gopalakrishnan@comcast.com>
+---
+ source/CellularManager/cellularmgr_sm.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/source/CellularManager/cellularmgr_sm.c b/source/CellularManager/cellularmgr_sm.c
+index aa724e5..8e419c4 100755
+--- a/source/CellularManager/cellularmgr_sm.c
++++ b/source/CellularManager/cellularmgr_sm.c
+@@ -387,12 +387,19 @@ int CellularMgrIPReadyCBForSM( CellularIPStruct *pstIPStruct, CellularDeviceIPRe
+         CcspTraceInfo(("%s %d: Failed to set LinkStatus in Interface table\n", __FUNCTION__, __LINE__));
+     }
+ #endif
+-    //Need to inform all ip details to WAN manager
+-    if ( CellularMgr_Util_SendIPToWanMgr( pstIPStruct ) != RETURN_OK ) 
++#if defined(WAN_MANAGER_UNIFICATION_ENABLED)
++    if( (pIpSource != NULL) && strncmp(pIpSource, DML_PARAM_VALUE_IPSOURCE_DHCP, strlen(DML_PARAM_VALUE_IPSOURCE_DHCP)) )
+     {
+-        CcspTraceError(("%s - Failed to send IP info to WanManager \n", __FUNCTION__));
+-        return RETURN_ERROR;
++#endif
++        //Need to inform all ip details to WAN manager
++        if ( CellularMgr_Util_SendIPToWanMgr( pstIPStruct ) != RETURN_OK )
++        {
++            CcspTraceError(("%s - Failed to send IP info to WanManager \n", __FUNCTION__));
++            return RETURN_ERROR;
++        }
++#if defined(WAN_MANAGER_UNIFICATION_ENABLED)
+     }
++#endif
+ #ifdef HYBRID_SUPPORT
+     if (ip_ready_status == DEVICE_NETWORK_IP_READY)
+     {
+-- 
+2.50.1
+
