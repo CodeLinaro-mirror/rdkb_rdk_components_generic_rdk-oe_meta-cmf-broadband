@@ -1,0 +1,23 @@
+Date: Aug 17, 2018 8:23 PM
+From: dfcc2eea3f21ced7b7c193388c66cdaa48d468cd Aug 18, 2018 1:12 AM
+Subject: [PATCH] RDK-22467 support for new error codes and fix memory leak
+	Support error codes for internal error and Default Value and Fix memory leak in wdmp_free_res_struct
+	Validate using Curl interface with invalid and default error scenarios
+Source: COMCAST
+Upstream-Status: Pending
+Signed-off-by: Venkata Bojja <Venkata_Bojja2@cable.comcast.com>
+---
+
+diff --git a/src/wdmp-c.h b/src/wdmp-c.h
+index a00937c..dbdfe65 100644
+--- a/src/wdmp-c.h
++++ b/src/wdmp-c.h
+@@ -83,6 +83,8 @@ typedef enum
+     WDMP_ERR_ATOMIC_GET_SET_FAILED,
+     WDMP_ERR_METHOD_NOT_SUPPORTED,
+     WDMP_ERR_SESSION_IN_PROGRESS,
++    WDMP_ERR_INTERNAL_ERROR,
++    WDMP_ERR_DEFAULT_VALUE,
+     WDMP_ERR_MAX_REQUEST
+ } WDMP_STATUS;
+ 
