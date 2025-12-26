@@ -7,6 +7,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh"
 SRC_URI += "file://pr-534.patch"
+SRC_URI += "file://pr-547.patch"
 PV_Unified-wifi-mesh = "v0.1.0"
 SRCREV_Unified-wifi-mesh = "f7cbc0057874477685a162f7bbc40be666cc3220"
 SRCREV_FORMAT = "Unified-wifi-mesh"

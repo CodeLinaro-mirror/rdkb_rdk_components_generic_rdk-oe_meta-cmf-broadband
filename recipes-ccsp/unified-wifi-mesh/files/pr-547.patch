@@ -1,0 +1,35 @@
+From e9f8ed1c02142e29b88f970344219e1933eff548 Mon Sep 17 00:00:00 2001
+From: Abijith Nayak <abijith_nayakmr@comcast.com>
+Date: Wed, 24 Dec 2025 00:03:54 +0530
+Subject: [PATCH] RDKBACCL-1366 : Fix controller not sending channel pref query
+
+Controller is not sending the channel pref query message as it
+wrongly moved channel pref report pending state without sending
+channel pref query message. This commit addresses that issue.
+---
+ src/em/channel/em_channel.cpp | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/src/em/channel/em_channel.cpp b/src/em/channel/em_channel.cpp
+index 7bcf6e0e..4ee53f91 100644
+--- a/src/em/channel/em_channel.cpp
++++ b/src/em/channel/em_channel.cpp
+@@ -2023,7 +2023,7 @@ void em_channel_t::process_ctrl_state()
+ {
+     switch (get_state()) {
+         case em_state_ctrl_channel_query_pending:
+-			if(get_service_type() == em_service_type_ctrl) {
++            if(get_service_type() == em_service_type_ctrl) {
+                 std::vector<em_t *> em_radios;
+                 dm_easy_mesh_t *dm = get_data_model();
+                 get_mgr()->get_all_em_for_al_mac(dm->get_agent_al_interface_mac(), em_radios);
+@@ -2044,8 +2044,7 @@ void em_channel_t::process_ctrl_state()
+ 				    send_channel_pref_query_msg();
+                 }
+                 em_radios.clear();
+-				set_state(em_state_ctrl_channel_pref_report_pending);
+-			}
++            }
+             break;
+ 
+         case em_state_ctrl_channel_select_pending:
