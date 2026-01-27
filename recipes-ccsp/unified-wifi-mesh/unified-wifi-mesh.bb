@@ -54,6 +54,8 @@ LDFLAGS_append = " \
     -lbreakpadwrapper \
 "
 EXTRA_OECONF_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'em_extender', 'EM_EXTENDER=true', 'EM_EXTENDER=false', d)}"
+#To enable unit test support
+EXTRA_OECONF:append = " ${@bb.utils.contains('DISTRO_FEATURES', 'Em_Unittest', 'EM_UNITTEST=true', 'EM_UNITTEST=false', d)}"
 
 #minidump support
 BREAKPAD_BIN_append = " onewifi_em_ctrl "
