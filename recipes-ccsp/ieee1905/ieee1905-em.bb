@@ -9,8 +9,8 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 # Source repository
 SRC_URI = "git://github.com/rdkcentral/ieee1905-rs.git;nobranch=1;protocol=https"
-SRCREV = "053ae8ac049e54f7267c7ce2b7cfaeab84eab44e"
-PV = "v0.2.0"
+SRCREV = "d64cf3da1937cf5cee7026c055793604212673d9"
+PV = "v0.3.2"
 
 SRC_URI += "\
      ${@bb.utils.contains('DISTRO_FEATURES','em_extender',' file://ieee1905_em_ext_agent.service ',' file://ieee1905_em_agent.service ',d)} \
@@ -19,12 +19,18 @@ SRC_URI += "\
 
 #Breakpad support
 DEPENDS = "breakpad breakpad-wrapper"
+DEPENDS += " clang-native rbus "
 CFLAGS += "-I${STAGING_INCDIR}/breakpad "
 CXXFLAGS += "-I${STAGING_INCDIR}/breakpad "
 
+export LIBCLANG_PATH = "${STAGING_LIBDIR_NATIVE}"
+
 LDFLAGS_append = " \
     -lbreakpadwrapper \
+    -lrbus \
 "
+
+RUSTFLAGS += "-L ${STAGING_LIBDIR} -l rbus"
 BREAKPAD_BIN_append = " ieee1905-em"
 
 # Source directory
