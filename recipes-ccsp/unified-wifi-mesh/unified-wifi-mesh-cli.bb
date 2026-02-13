@@ -61,12 +61,9 @@ do_compile() {
 
 do_install() {
         install -d ${D}/usr/bin
-        install -d ${D}/nvram
-        install -d ${D}/nvram/static
+        install -d ${D}/usr/ccsp/EasyMesh/static
         install -m 755 ${S}/src/import/src/rdkb-cli/onewifi_em_cli  ${D}/usr/bin
-        install -m 664 ${S}/src/import/install/config/*  ${D}/nvram
-        install -m 664 ${S}/src/import/install/bin/Reset.json  ${D}/nvram
-        cp -rf ${S}/src/import/src/rdkb-cli/static/*  ${D}/nvram/static
+        cp -rf ${S}/src/import/src/rdkb-cli/static/*  ${D}/usr/ccsp/EasyMesh/static
 }
 
-FILES_${PN} += " ${bindir}/* /nvram/* /nvram/static/* "
+FILES_${PN} += " ${bindir}/* /usr/ccsp/EasyMesh/static/* "

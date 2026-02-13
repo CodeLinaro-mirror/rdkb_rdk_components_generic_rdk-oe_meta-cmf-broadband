@@ -70,6 +70,8 @@ do_install_append() {
     DISTRO_EM_EXT_ENABLED="${@bb.utils.contains('DISTRO_FEATURES','em_extender','true','false',d)}"
     if [ $DISTRO_EM_EXT_ENABLED = 'true' ]; then
        cp ${WORKDIR}/ext_em_agent.service ${WORKDIR}/em_agent.service
+    else
+       install -m 664 ${S}/install/config/*  ${D}/usr/ccsp/EasyMesh
     fi
     install -D -m 0644 ${WORKDIR}/em_*.service ${D}${systemd_unitdir}/system/
 }
