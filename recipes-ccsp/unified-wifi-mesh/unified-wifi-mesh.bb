@@ -72,11 +72,14 @@ do_install_append() {
        cp ${WORKDIR}/ext_em_agent.service ${WORKDIR}/em_agent.service
     fi
     install -D -m 0644 ${WORKDIR}/em_*.service ${D}${systemd_unitdir}/system/
+
+    #Needed for WFA Data Elements.
+    install -d ${D}/nvram
+    install -m 755 ${WORKDIR}/git/src/ctrl/tr_181/wfa_data_model/Data_Elements_JSON_Schema_v3.0.json ${D}/nvram
 }
 
 SYSTEMD_SERVICE_${PN} = " em_agent.service"
 SYSTEMD_SERVICE_${PN} += " ${@bb.utils.contains('DISTRO_FEATURES','em_extender','',' em_ctrl.service em_cli.service ',d)}"
 
-FILES_${PN} += "${libdir}/*.so*  ${bindir}/* /usr/ccsp/EasyMesh/* "
+FILES_${PN} += "${libdir}/*.so*  ${bindir}/* /usr/ccsp/EasyMesh/* /nvram/* "
 FILES_${PN} += "${systemd_unitdir}/system/* "
-
