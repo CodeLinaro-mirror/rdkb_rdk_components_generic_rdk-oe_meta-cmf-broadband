@@ -2,7 +2,6 @@
 
 #mysql database - inserting default values in db
 if [ ! -e "/nvram/mysql_db_data_exists" ]; then
-sleep 5
 br_mac="$(cat /sys/class/net/brlan0/address)"
 al_mac="$(cat /sys/class/net/eth0_virt_peer/address)"
 old_al_mac_addr=`cat /nvram/EasymeshCfg.json | grep AL_MAC_ADDR  | cut -d '"' -f4`
