@@ -1,9 +1,9 @@
 #!/bin/sh
 
 #Ensure onewifi is up and running
-while [ ! -e /tmp/wifi_initialized ] && [ ! -e /tmp/wifi_dml_complete ] ; 
-do   
-   sleep 1; 
+while [ ! -e /tmp/wifi_initialized ] || [ ! -e /tmp/wifi_dml_complete ] ;
+do
+   sleep 1;
 done
 
 #Ensure backhaul connectivity is established

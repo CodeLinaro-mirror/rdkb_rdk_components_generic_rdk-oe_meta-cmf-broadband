@@ -23,7 +23,7 @@ After=CcspEthAgent.service
 [Service]
 Type=forking
 WorkingDirectory=/usr/ccsp/EasyMesh
-ExecStartPre=/bin/sh -c 'sleep 5'
+ExecStartPre=/bin/sh -c 'val=`syscfg get wan_physical_ifname`; echo "current wan name :$val"; while [ ! -e /sys/class/net/$val/address ] ;do sleep 1; done'
 ExecStartPre=/bin/sh -c 'if [ ! -e "/sys/class/net/eth0_virt_peer/address" ]; then `/usr/ccsp/EasyMesh/setup_veth_for_em.sh brlan0 eth0 true`; fi'
 ExecStart=/bin/sh -c '/usr/bin/ieee1905 -f off -i eth0_virt_peer --sap-data-path /tmp/al_em_ctrl_data_socket --sap-control-path /tmp/al_em_ctrl_control_socket >> /tmp/ieee1905_ctrl_log.txt &'
 Restart=always
