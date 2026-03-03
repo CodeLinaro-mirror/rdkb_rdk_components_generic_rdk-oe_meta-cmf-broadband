@@ -15,9 +15,9 @@ DEPENDS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_supp
 DEPENDS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'cellular_hybrid_support', ' udev', " ", d)}"
 
 SRC_URI = "${CMF_GITHUB_ROOT}/cellular-modem-manager;protocol=https;nobranch=1;name=CellularManager-mm"
-SRCREV_CellularManager-mm = "7d8b076deb7a36a06ace17eefe4bc0abd312d04a"
+SRCREV_CellularManager-mm = "bfe529addc226ccd43c6c25c2dacdc37f2de3c59"
 SRCREV_FORMAT = "CellularManager-mm"
-PV = "1.0.0"
+PV = "1.0.1"
 PR = "r0"
 
 S = "${WORKDIR}/git"
