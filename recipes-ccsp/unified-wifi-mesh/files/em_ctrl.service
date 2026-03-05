@@ -18,7 +18,7 @@
 ##########################################################################
 [Unit]
 Description=EasyMesh Controller service
-After=mysqld.service ieee1905_em_ctrl.service
+After=mysqld.service ieee1905_em_ctrl.service CcspPandMSsp.service
 
 [Service]
 Type=forking
