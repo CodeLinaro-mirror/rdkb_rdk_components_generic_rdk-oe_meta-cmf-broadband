@@ -9,9 +9,8 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 # Source repository
 SRC_URI = "git://github.com/rdkcentral/ieee1905-rs.git;nobranch=1;protocol=https"
-SRC_URI += " file://0001-fixed-selection-of-the-node-when-multiple-nodes-have.patch"
-SRCREV = "14e7efcdc4c93fa21fee8755f595bc874d72d5c4"
-PV = "v0.4.0"
+SRCREV = "e5b046be767b492dcfe4d1864954864aee1864d8"
+PV = "v0.5.0"
 
 SRC_URI += "\
      ${@bb.utils.contains('DISTRO_FEATURES','em_extender',' file://ieee1905_em_ext_agent.service ',' file://ieee1905_em_agent.service ',d)} \
