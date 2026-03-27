@@ -1,4 +1,5 @@
 BBMASK .= "|meta-rdk-broadband/recipes-extended/hwselftest/"
+BBMASK .= "|meta-rdk-broadband/recipes-rdkb/sysint-broadband/sysint-broadband-min.bb"
 
 BBMASK .= "|meta-rdk/recipes-common/nlmonitor/"
 BBMASK .= "|meta-rdk/recipes-connectivity/bluetooth/"
