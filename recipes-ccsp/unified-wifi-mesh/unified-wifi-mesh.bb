@@ -6,8 +6,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=e0b1ae637439c7d6f4487fb90163c79a"
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "git://github.com/rdkcentral/unified-wifi-mesh.git;nobranch=1;protocol=https;name=Unified-wifi-mesh"
-PV_Unified-wifi-mesh = "v0.1.0"
-SRCREV_Unified-wifi-mesh = "86e9c43737fbfd0a18241ca0034c5af0b3c04c85"
+PV_Unified-wifi-mesh = "v0.2.1"
+SRCREV_Unified-wifi-mesh = "2fdd34f70373543bd2372dde68582beaf596cbbb"
 SRCREV_FORMAT = "Unified-wifi-mesh"
 
 SRC_URI += "git://github.com/rdkcentral/OneWifi.git;branch=develop;protocol=https;name=OneWifi;destsuffix=git/OneWifi"
